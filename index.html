@@ -1,0 +1,24 @@
+<script type="text/javascript">
+  // always redirect to index.htm if not already there
+  (function () {
+    var current = window.location.pathname;
+    // check if not already on index.htm (case-insensitive)
+    if (!/index\.htm$/i.test(current)) {
+      var newPath = current.replace(/\/?$/, "/"); // ensure trailing slash for root
+      // handle root or other html files
+      if (
+        newPath === "/" ||
+        newPath === "/index.html" ||
+        newPath === "/index/"
+      ) {
+        window.location.replace("/index.htm");
+      } else if (!/\.htm(l)?$/i.test(newPath)) {
+        // if not an html/htm file, force to index.htm in current directory
+        window.location.replace(newPath + "index.htm");
+      } else if (/\.html$/i.test(newPath)) {
+        // if .html, replace with .htm
+        window.location.replace(current.replace(/\.html$/i, ".htm"));
+      }
+    }
+  })();
+</script>
